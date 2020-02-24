@@ -4,20 +4,31 @@ import axios from 'axios';
 let messages = 
 
 {
-  "Scoops ahoy": "Scoops ahoy!", 
-  "Where are you located?": "Starcourt mall, Hawkins Indiana", 
-  "What do you think about kids?": "Man, kids are the worst! Who needs 'em, anyway?"
+  "scoops ahoy": "Scoops ahoy!", 
+  "where are you located?": "Starcourt mall, Hawkins Indiana", 
+  "what do you think about kids?": "Man, kids are the worst! Who needs 'em, anyway?"
 }
 
+let locations = []
+let found = []
 
-console.log(sum(1,2));
+const Carousel = require("vanilla-js-carousel");
 
-const main = async () => {
-  const res = await axios.get('https://fizal.me/pokeapi/api/v2/name/bulbasaur.json');
-  console.log(res.data);
-}
 
-main();
+var carousel = new Carousel({
+  elem: 'carousel',    // id of the carousel container
+  autoplay: true,      // starts the rotation automatically
+  infinite: true,      // enables infinite mode
+  interval: 3000,      // interval between slide changes
+  initial: 0,          // slide to start with
+  arrows: true,        // show navigation arrows
+  buttons: false,      // hide <play>/<stop> buttons,
+  btnStopText: 'Pause' // <stop> button text
+});
+
+
+
+carousel.show(0);
 
 
 function renderChat() { 
@@ -32,9 +43,9 @@ function renderChat() {
   let sendButton = document.createElement("button")
 
   
-
   header.innerText = "Chat"
   message.innerText = "Message"
+  messageArea.id = "messageBox"
   messageArea.name = "name"
   sendButton.innerText = "Send"
 
@@ -50,11 +61,98 @@ function renderChat() {
 }
 
 
+
+
 function botResponse(question) { 
   
+  let sanitizedQ = question.toLowerCase()
+  let response
+
+    if(sanitizedQ.includes("is there ice cream in")) { 
+      let zip = sanitizedQ.slice(-5)
+      findIceCream(zip)
+
+
+      } else if (Object.keys(messages).includes(sanitizedQ)) { 
+      response = messages[sanitizedQ]
+      appendChat(response, "bot")
+      } else { 
+        response = "Yeah, that's a no"
+        appendChat(response, "bot")
+      }
 
 
 
+ 
+}
+
+function fetchLocations () { 
+  fetch('https://project.wnyc.org/ice-cream/data/places.json')
+  .then(resp => resp.json()) 
+  .then(resp => {
+    locations = resp
+  })
+}
+//// helpers 
+
+
+function appendLocation(location) { 
+let chatScreen = document.getElementById("chat-screen")
+
+let container = document.createElement("div")
+let address = document.createElement("p")
+let name = document.createElement("p")
+
+name.innerText = location.name
+address.innerText = location.address
+
+container.append(name, address)
+
+chatScreen.append(container)
+
+
+
+}
+
+
+
+function findIceCream(zipcode) { 
+   found = locations.filter((location) => location.address.includes(zipcode))
+
+   found.forEach(location => {
+     appendLocation(location, "bot") 
+
+   })
+}
+
+function appendChat(chat, responseType) {
+
+  let chatScreen = document.getElementById("chat-screen")
+  let chatContainer = document.createElement("div")
+ 
+  let newChatBubble = document.createElement("p")
+  newChatBubble.innerText = chat
+
+  let span = document.createElement("span")
+
+
+  
+  if(responseType === "bot") { 
+    chatContainer.className = "chat-bubble-bot"
+   
+    span.innerText= "Steve says: "
+ 
+  } else { 
+    chatContainer.className = "chat-bubble"
+    span.innerText= "User says: "
+
+  }
+
+
+  chatContainer.append(span,newChatBubble)
+
+  chatScreen.appendChild(chatContainer)
+  
 
 }
 
@@ -63,15 +161,11 @@ function botResponse(question) {
 
 function chatHandler(e) {
   e.preventDefault()
-
-
-  console.log(e.target[0].value)
-
   let chatScreen = document.getElementById("chat-screen")
-  let newChatBubble = document.createElement("p")
-  newChatBubble.innerText = e.target[0].value
+  chatScreen.style.display = "block"
 
-  chatScreen.appendChild(newChatBubble)
+  appendChat(e.target[0].value)
+  botResponse(e.target[0].value)
 
   
   // e.preventDefault()
@@ -86,3 +180,4 @@ function chatHandler(e) {
 
 
 renderChat()
+fetchLocations()

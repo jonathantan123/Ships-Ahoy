@@ -4,5 +4,77 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  
 
 }
+
+
+.main-container {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+html{ 
+    background: url(images/background.jpg) no-repeat center center fixed; 
+    background-size: cover;
+    font-family: 'Seaweed Script';
+    font-size: 18px; 
+    color: white;
+
+  } 
+
+  #messageBox{ 
+    font-family: 'Seaweed Script';
+    font-size: 18px
+
+  }
+
+
+  #chat-screen{ 
+      display: flex;
+      overflow: auto;
+      flex-wrap: wrap;
+      width: 50vw;
+      height: 50vh;
+      border: 2px solid #dedede;
+      background-color: #f1f1f1;
+      border-radius: 5px;
+      padding: 10px;
+      margin: 10px 0;
+      opacity: .8;
+  }
+
+
+.chat-bubble { 
+    border: 1px solid #dedede;
+    background-color: floralwhite; 
+    border-radius: 25px;
+    padding: 5px;
+    opacity: 0.6;
+    width: 50%;
+    color: black;
+    width: 60%;
+    height: 20%;
+}
+.chat-bubble-bot { 
+    border: 1px solid grey;
+    padding: 5px;
+    border-radius: 25px;
+    background-color: black; 
+    opacity: 0.6;
+    width: 60%;
+    height: 20%;
+    margin-left: auto;
+
+}
+
+
+
+
+
+
+
+
