@@ -155,7 +155,7 @@ function findIceCream(zipcode) {
    })
 }
 
-/// 2. Fetch 
+/// 2. Initial Fetch
 
 function fetchLocations () { 
   fetch('https://project.wnyc.org/ice-cream/data/places.json')
