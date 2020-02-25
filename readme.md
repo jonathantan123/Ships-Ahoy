@@ -14,7 +14,7 @@
 
 - Fork/Clone this repo.
 - `npm install`
-- Open 3 terminals and run:
+- Open 2 terminals and run:
   - `npm run webpack:dev`
   - `npm run server`
 
