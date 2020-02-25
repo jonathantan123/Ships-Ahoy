@@ -28,7 +28,10 @@ html{
 
   #messageBox{ 
     font-family: 'Seaweed Script';
-    font-size: 18px
+    font-size: 18px;
+    border-radius: 25px;
+    width: 40vw;
+    height: 10vh;
 
   }
 
@@ -66,9 +69,17 @@ html{
     background-color: black; 
     opacity: 0.6;
     width: 60%;
-    height: 20%;
+    height: auto;
     margin-left: auto;
+}
 
+.button { 
+    font-family: 'Seaweed Script';
+
+}
+
+#close-button { 
+    float: right;
 }
 
 
