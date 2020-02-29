@@ -78,7 +78,7 @@ function botResponse(question) {
       }
 }
 
-// 4. Locations Responses 
+/// 4. Locations Responses 
 
 
 
